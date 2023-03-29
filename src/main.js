@@ -11,5 +11,12 @@ import router from '@/router'
  * device screen size adaptation
  */
 import '@/assets/js/flexible'
+/**
+ * fun-tab plugin
+ */
+import FunTab from 'fun-tab'
+import 'fun-tab/dist/index.css'
+//
 
-createApp(App).use(router).mount('#app')
+
+createApp(App).use(router).use(FunTab).mount('#app')

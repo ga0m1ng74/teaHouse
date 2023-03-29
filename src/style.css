@@ -4,10 +4,14 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    color: rgb(52, 73, 74);
+    max-width: 400px;
+}
+
+a {
+    text-decoration: none;
 }
 
 ul {
     list-style: none;
 }
-
-#app {}

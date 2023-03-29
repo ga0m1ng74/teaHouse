@@ -68,27 +68,28 @@ export default {
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 54px;
+    height: 1.2rem;
     background-color: #fff;
-    z-index: 9;
+    z-index: 99;
 
     ul {
         display: flex;
         padding-top: 6px;
+        height: 1.2rem;
 
         li {
             width: calc(100%/4);
             display: flex;
             flex-direction: column;
             outline: 1px solid #ccc;
-
+            background-color: rgb(74, 210, 148);
             img {
-                width: 28px;
-                height: 28px;
+                width: .6222rem;
+                height: .6222rem;
             }
 
             span {
-                font-size: 14px;
+                font-size: .3111rem;
             }
 
             .footerImg,
