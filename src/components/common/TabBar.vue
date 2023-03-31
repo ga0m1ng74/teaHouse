@@ -68,28 +68,25 @@ export default {
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 1.2rem;
+    height: 1rem;
     background-color: #fff;
     z-index: 99;
 
     ul {
         display: flex;
-        padding-top: 6px;
-        height: 1.2rem;
+        height: 1rem;
 
         li {
             width: calc(100%/4);
             display: flex;
             flex-direction: column;
-            outline: 1px solid #ccc;
             background-color: rgb(74, 210, 148);
             img {
-                width: .6222rem;
-                height: .6222rem;
+                width: .4444rem;
+                height: .4444rem;
             }
-
             span {
-                font-size: .3111rem;
+                font-size: .1778rem;
             }
 
             .footerImg,
@@ -97,6 +94,7 @@ export default {
                 display: flex;
                 flex: content;
                 justify-content: center;
+                align-items: center;
             }
         }
     }

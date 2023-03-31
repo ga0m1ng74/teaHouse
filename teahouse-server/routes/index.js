@@ -371,7 +371,7 @@ router.get('/index_list/home/9', function(req, res, next) {
     })
 })
 
-//mysql query goodlist
+//mysql query goodslist
 router.get('/goods/shopList', function(req, res, next) {
     // front end ----(query)----> back end
     let name = req.query.searchName
@@ -383,5 +383,196 @@ router.get('/goods/shopList', function(req, res, next) {
     })
 })
 
+//page category data
+router.get('/category/menuList', function(req, res, next) {
+    res.send({
+        code: 0,
+        menuList: [{
+                id: 1,
+                name: 'BLACK TEAS',
+                details: [{
+                        id: 1,
+                        name: 'Traditional Black Teas',
+                        imgUrl: './img/TBlackT/Ear_Grey_Organic.jpeg',
+                    },
+                    {
+                        id: 2,
+                        name: 'Classic Black Teas',
+                        imgUrl: './img/ClassicBT/Assam_Harmutty_SFTGFOP.jpeg',
+                    },
+                    {
+                        id: 3,
+                        name: 'Flavoured Black Teas',
+                        imgUrl: './img/FlavouredBT/ChocolateChipChai.jpeg',
+                    },
+                    {
+                        id: 4,
+                        name: 'Australian Black Teas',
+                        imgUrl: './img/AustralianBT/Australian_Breakfast_Blend.jpeg',
+                    },
+                    {
+                        id: 5,
+                        name: 'Organic Black Teas',
+                        imgUrl: './img/OrganicBT/Darjeeling_Goomtee.jpeg',
+                    },
+                ]
+            },
+            {
+                id: 2,
+                name: 'GREEN TEAS',
+                details: [{
+                        id: 6,
+                        name: 'Classic Green Teas',
+                        imgUrl: './img/GreenT/Japanese_Sencha_Guricha_Organic.jpeg',
+                    },
+                    {
+                        id: 7,
+                        name: 'Flavoured Green Teas',
+                        imgUrl: './img/GreenT/Japanese_Lime_Green_Tea.jpeg',
+                    },
+                    {
+                        id: 8,
+                        name: 'Australian Green Teas',
+                        imgUrl: './img/GreenT/Australian_Green_Tea_Sencha.jpeg',
+                    },
+                    {
+                        id: 9,
+                        name: 'Oolong (Woolong)',
+                        imgUrl: './img/GreenT/Milky_Oolong.jpeg',
+                    },
+                    {
+                        id: 10,
+                        name: 'Organic Green Teas',
+                        imgUrl: './img/GreenT/Jasmine_Tea_Organic.jpeg',
+                    }
+                ]
+            },
+            {
+                id: 3,
+                name: 'HERBAL & WELLNESS',
+                details: [{
+                        id: 11,
+                        name: 'Herbal Infusions',
+                        imgUrl: './img/Herbal/Organic_Peppermint.jpeg',
+                    },
+                    {
+                        id: 12,
+                        name: 'Wellness Blends',
+                        imgUrl: './img/Herbal/Sweet_Dreams.jpeg',
+                    },
+                    {
+                        id: 13,
+                        name: 'Ayurvedic Blends',
+                        imgUrl: './img/Herbal/Inner_Calmness.jpeg',
+                    }
+                ]
+            },
+            {
+                id: 4,
+                name: 'OTHER TEAS',
+                details: [{
+                        id: 14,
+                        name: 'Chai Tea & Chai Latte',
+                        imgUrl: './img/ChaiT/Masala_Chai_Green_Tea.jpeg',
+                    },
+                    {
+                        id: 15,
+                        name: 'Decaffeinated Teas',
+                        imgUrl: './img/DecaffeinatedT/Chai_Black_Decaffeinated_Tea_Black_Tea.jpeg',
+                    },
+                    {
+                        id: 16,
+                        name: 'Rooibos & Honeybush',
+                        imgUrl: './img/ROOIBOS/Rooibos_Blueberry_Cheesecake.jpeg',
+                    },
+                    {
+                        id: 17,
+                        name: 'Australian Teas',
+                        imgUrl: './img/AustralianBT/Australian_Breakfast_Blend.jpeg',
+                    },
+                    {
+                        id: 18,
+                        name: 'Premium Pyramid Teabags',
+                        imgUrl: './img/Teabags/Tea_Lovers_Silk_Pyramid_Teabags.webp',
+                    },
+                ]
+            },
+            {
+                id: 5,
+                name: 'TEA WARES',
+                details: [{
+                        id: 19,
+                        name: 'Japanese Mugs & Teacups',
+                        imgUrl: './img/TeaWares/Japanese-Lime-Blossom-Tea-Infuser-Mug-350ml.webp',
+                    },
+                    {
+                        id: 20,
+                        name: 'Japanese Teapots',
+                        imgUrl: './img/TeaWares/Hedgehog_Teapot_1250ml.webp',
+                    },
+                    {
+                        id: 21,
+                        name: 'Tea Infuser Bottles',
+                        imgUrl: './img/TeaWares/Bamboo_Double_Wall_Tea_Infuser_Bottle_420ml.webp',
+                    },
+                    {
+                        id: 22,
+                        name: 'Glass Teapots',
+                        imgUrl: './img/TeaWares/Blooming-Flowering-Tea-Teapot-Glass-360ml.webp',
+                    },
+                    {
+                        id: 23,
+                        name: 'Cast Iron Cups',
+                        imgUrl: './img/TeaWares/Blush_Pink_Iron_Cup.jpeg',
+                    },
+                    {
+                        id: 24,
+                        name: 'Tea Gift Sets',
+                        imgUrl: './img/TeaWares/Safari_Tea_For_One_Set.jpeg',
+                    },
+                ]
+            },
+            {
+                id: 6,
+                name: 'TEA ACCESSORIES',
+                details: [{
+                        id: 25,
+                        name: 'Japanese Tea Canisters',
+                        imgUrl: './img/ACCESSORIES/Glass_Sample_Jar.webp'
+                    },
+                    {
+                        id: 26,
+                        name: 'Tea Infusers',
+                        imgUrl: './img/ACCESSORIES/RoseGoldTeaInfuserBallBasket.webp'
+                    },
+                    {
+                        id: 27,
+                        name: 'Gift Teaspoons',
+                        imgUrl: './img/ACCESSORIES/JapaneseCeramicTeaScoopBlueSpiral.webp'
+                    },
+                    {
+                        id: 28,
+                        name: 'Matcha Making Accessories',
+                        imgUrl: './img/ACCESSORIES/Bamboo_Matcha_Whisk.webp'
+                    },
+                    {
+                        id: 29,
+                        name: 'Teapot Warmers',
+                        imgUrl: './img/ACCESSORIES/Moroccan-White-Ceramic-Teapot-Wamer.webp'
+                    }
+                ]
+            },
+            {
+                id: 7,
+                name: 'GIFTS',
+                details: [{
+                    id: 30,
+                    name: 'Gift Box',
+                    imgUrl: './img/Gift/Christmas-Tea-Gift-Box-Set.webp'
+                }]
+            }
+        ],
+    })
+})
 
 module.exports = router;

@@ -3,7 +3,7 @@
         <Header></Header>
         <div class="fun-tab">
             <fun-tabs v-model="selectedId" activeColor="#4AD294" @change="handleTabsChange">
-                <fun-tab-item v-for="(item) in funTabList.value" :name="item.id" :title="item.title" />
+                <fun-tab-item v-for="(item) in funTabList" :name="item.id" :title="item.title" />
             </fun-tabs>
         </div>
         <div v-for="(item,index) in pageContent" :key="index">
@@ -56,7 +56,7 @@ export default {
     components: { TabBar, Header, Swiper, Icons, Recommend, SortCard, Classfication },
     setup() {
         let selectedId = ref(1)
-        let funTabList = reactive([])
+        let funTabList = ref([])
         let pageContent = reactive({})
         const handleTabsChange = (value) => {
             console.log('FunTabs change:', value)
@@ -67,7 +67,6 @@ export default {
         const requestHomePage = async (value) => {
             try {
                 const response = await axios({ url: '/api/index_list/home/'+(value?value:1) })
-                console.log(response)
                 //page content
                 pageContent.value = await response.data.page
             } catch (error) {
@@ -77,9 +76,9 @@ export default {
         const requestTabBarInfo = async()=>{
             try {
                 const response = await axios({ url: '/api/index_list/tapBar/' })
-                console.log(response)
                  //tapBar
-                 funTabList.value = await response.data.tapBar
+                funTabList.value = await response.data.tapBar
+                
             } catch (error) {
                 console.log(error.message)
             }
@@ -91,7 +90,6 @@ export default {
         })
         onUpdated(() => {
             window.scrollTo(0,0)
-            console.log('onUpdated')
         })
 
         return {
