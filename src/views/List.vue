@@ -77,7 +77,7 @@ section {
     height: 100vh;
     display: flex;
     justify-content: center;
-    
+    // position: fixed;
     li {
         height: 1.5rem;
         display: flex;
@@ -103,7 +103,6 @@ section {
     width: 100%;
     display: flex;
     flex-direction: column;
-
     .right-wrap {
         display: flex;
         flex-direction: column;
