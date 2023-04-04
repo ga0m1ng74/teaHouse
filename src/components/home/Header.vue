@@ -1,6 +1,6 @@
 <template>
     <header>
-        <div class="logo">
+        <div class="logo" @click="$router.push('/')">
             <img src="@/assets/img/tea.png" alt="tea-logo">
         </div>
         <div class="search">

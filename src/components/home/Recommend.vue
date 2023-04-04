@@ -1,9 +1,9 @@
 <template>
     <div class="Recommond">
         <ul>
-            <li v-for="item in recommendList" :key="item.id">
+            <li v-for="item in recommendList" :key="item.id" @click="productPage(item.title)">
                 <figure class="figure">
-                    <a href="">
+                    <a href="#">
                         <img :src="item.imgUrl" alt="">
                     </a>
                 </figure>
@@ -21,14 +21,16 @@
 </template>
 
 <script>
-
+import router from '@/router'
 export default {
     name: 'Recommond',
     props:['recommendList'],
     setup() {
-        
+        const productPage = (title)=>{
+            router.push({path:'/product',query:{title}})
+        }
         return {
-            
+            productPage
         }
     }
 }

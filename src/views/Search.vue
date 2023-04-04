@@ -21,10 +21,10 @@
             </span>
         </div>
     </section>
-    <article class="result" v-for="(item) in searchResult" :key="item.id">
+    <article class="result" v-for="(item) in searchResult" :key="item.id" @click="productPage(item.title)">
         <figure>
-            <a href="">
-                <img :src="item.imgUrl" alt="">
+            <a>
+                <img :src="item.imgUrl">
             </a>
         </figure>
         <div class="result-detail">
@@ -37,6 +37,7 @@
 <script>
 import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
+import router from '@/router'
 import axios from 'axios'
 export default {
     setup() {
@@ -54,6 +55,10 @@ export default {
             searchResult.value = response.data.data
             console.log(searchResult.value);
         }
+
+        const productPage = (title)=>{
+            router.push({path:'/product',query:{title}})
+        }
         onBeforeMount(async () => {
             const response = await axios({
                 url: '/api/goods/shopList', params: {
@@ -68,6 +73,7 @@ export default {
             newKeyWord,
             searchResult,
             onEnterPress,
+            productPage,
         }
     }
 }
@@ -170,4 +176,5 @@ header {
         justify-content: center;
         width: 90%;
     }
-}</style>
+}
+</style>

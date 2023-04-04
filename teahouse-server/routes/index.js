@@ -575,4 +575,17 @@ router.get('/category/menuList', function(req, res, next) {
     })
 })
 
+
+//query production name and return data
+router.get('/product/title', function(req, res, next) {
+    let title = req.query.title;
+    connection.query('select * from tea_table where title like "%' + title + '%"', function(error, result) {
+        if (error) throw error;
+        res.send({
+            code: 0,
+            data: result
+        })
+    })
+})
+
 module.exports = router;

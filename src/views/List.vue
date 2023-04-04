@@ -52,21 +52,18 @@ export default {
                 const response = await axios({ url: '/api/category/menuList' })
                 //category data
                 categoryMenuList.value = await response.data
-
-                console.log(categoryMenuList.value);
             } catch (error) {
                 console.log(error.message)
             }
         }
 
         const menuClick = (index) => {
-            console.log(index)
             window.scrollTo(0,screenLocation[index])
         }
 
         const pagePositionHandler = ()=>{
             pagePosition = window.pageYOffset
-            console.log(pagePosition);
+            // console.log(pagePosition);
             if(pagePosition>=0 && pagePosition<390) pageIndex.value =0
             else if (pagePosition>=390 && pagePosition<770) pageIndex.value=1
             else if (pagePosition>=770 && pagePosition<990) pageIndex.value=2
