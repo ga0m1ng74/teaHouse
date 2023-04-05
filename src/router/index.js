@@ -27,10 +27,10 @@ const routes = [{
             import ("../views/Cart.vue")
     },
     {
-        path: '/my',
-        name: 'My',
+        path: '/me',
+        name: 'Me',
         component: () =>
-            import ("../views/My.vue")
+            import ("../views/Me.vue")
     },
     {
         path: '/search',
