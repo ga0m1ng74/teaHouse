@@ -11,7 +11,7 @@
                 <span>{{ productResult[0].title }}</span>
             </div>
             <div class="price">
-                <span>${{productResult[0].price}}</span>
+                <span>${{ dynamicPrice }}</span>
             </div>
             <div class="description">
                 <div class="description-title">
@@ -30,7 +30,7 @@
                         <label for="">SIZE:</label>
                     </div>
                     <div class="options-select">
-                        <select name="" id="">
+                        <select @change="setPrice">
                             <option value="100g" selected="selected">100g</option>
                             <option value="250g">250g</option>
                             <option value="500g">500g</option>
@@ -61,6 +61,12 @@
                 <p> {{ productResult[0].INGREDIENTS }}</p>
             </div>
         </section>
+        <section class="display" v-else>
+            <div class="construction">
+                <h2>PAGE UNDER CONSTRUCTION</h2>
+                <img src="@/assets/img/construct-outline.svg">
+            </div>
+        </section>
     </div>
 </template>
 
@@ -68,37 +74,65 @@
 import Header from '@/components/home/Header.vue';
 import axios from 'axios'
 import { useRoute } from 'vue-router'
-import { ref,onBeforeMount, onMounted } from 'vue'
+import { ref, onBeforeMount, onMounted } from 'vue'
 export default {
     components: { Header },
     setup() {
         let qty = ref(1)
         const route = useRoute()
         let productResult = ref({})
+        let dynamicPrice = ref('')
+        /**
+         * methods
+         */
         const qtyMinus = () => {
             qty.value--
-            if(qty.value <= 0){
+            if (qty.value <= 0) {
                 qty.value = 1
                 alert('quantity must more than 0')
             }
         }
         const qtyAdd = () => {
             qty.value++
-            if(qty.value >= 10){
+            if (qty.value >= 10) {
                 qty.value = 9
                 alert('quantity must less than 10')
             }
         }
-        onBeforeMount(async() => {
+        const setPrice=(e)=>{
+            let discount = 1
+            //set dynamic price on page
+            switch(e.target.value){
+                case '100g':
+                discount = 1
+                    break;
+                case '250g':
+                discount = 2.5*0.98
+                    break;
+                case '500g':
+                discount = 5*0.95
+                    break;
+                case '1Kg':
+                discount = 9
+                    break;
+            }
+            dynamicPrice.value = Math.floor(productResult.value[0].price * discount).toFixed(2)
+        }
+        /**
+         * hooks
+         */
+        onBeforeMount(async () => {
             let title = route.query.title
             const response = await axios({
-                url:'/api/product/title',
-                params:{
+                url: '/api/product/title',
+                params: {
                     title
                 }
             })
             productResult.value = response.data.data
-            console.log(productResult.value);
+            //get dynamicPrice
+            dynamicPrice.value = productResult.value[0].price
+            // console.log(productResult.value);
         })
 
         onMounted(() => {
@@ -106,9 +140,11 @@ export default {
         })
         return {
             qty,
+            productResult,
+            dynamicPrice,
             qtyMinus,
             qtyAdd,
-            productResult
+            setPrice,
         }
     }
 }
@@ -227,4 +263,12 @@ export default {
             margin-bottom: 10px;
         }
     }
-}</style>
+
+    .construction{
+        margin-top: 4rem;
+        img{
+            width: 25%;
+        }
+    }
+}
+</style>

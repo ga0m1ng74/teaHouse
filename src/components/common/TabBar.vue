@@ -27,16 +27,16 @@ export default {
         }, {
             title: 'Category',
             path: '/list',
-            active: '../src/assets/img/list-outline.svg',
-            slected: '../src/assets/img/list.svg',
+            active: '../src/assets/img/grid-outline.svg',
+            slected: '../src/assets/img/grid.svg',
         }, {
             title: 'Cart',
             path: '/cart',
             active: '../src/assets/img/cart-outline.svg',
             slected: '../src/assets/img/cart.svg',
         }, {
-            title: 'My',
-            path: '/my',
+            title: 'Me',
+            path: '/me',
             active: '../src/assets/img/person-outline.svg',
             slected: '../src/assets/img/person.svg',
         }

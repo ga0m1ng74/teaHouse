@@ -119,7 +119,9 @@ section {
         }
 
         &.active {
-            color: rgb(74, 210, 148);
+            span{
+                color: rgb(74, 210, 148);
+            }
             background-color: #fff;
         }
     }

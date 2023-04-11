@@ -20,7 +20,7 @@
             </form>
             <div class="sign-up">
                 <p>
-                    New customer? <a href="/me/register">Sign up for an account</a>
+                    New customer? <a href="/register">Sign up for an account</a>
                 </p>
             </div>
         </div>
