@@ -4,10 +4,8 @@ var router = express.Router();
  * sql
  */
 var connection = require('../db/sql.js')
-    /**
-     * sms sdk
-     */
-var QcloudSms = require("qcloudsms_js");
+var user = require('../db/user_sql.js')
+
 /* GET server home page. */
 router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
@@ -593,36 +591,70 @@ router.get('/product/title', function(req, res, next) {
 })
 
 /**
- * sms query and send
+ * login
  */
-// router.post('/sms/code', function(req, res, next) {
-//     // 短信应用SDK AppID
-//     var appid = 1400009099; // SDK AppID是1400开头
+router.post('/login', function(req, res, next) {
+    //back end get data from front end
+    let params = {
+            username: req.body.username,
+            password: req.body.password,
+        }
+        // let token = user.token()
+        // console.log(token);
+        //query from table user
+    connection.query(user.queryUsername(params), function(error, result) {
+        //username is ture
+        if (result.length > 0) {
+            connection.query(user.queryPassword(params), function(error, result) {
+                if (result.length > 0) {
+                    //username and password are correct
+                    res.send({
+                        code: 200,
+                        data: {
+                            success: true,
+                            msg: 'login success',
+                            data: result
+                        }
+                    })
+                } else {
+                    //username correct but password incorrect
+                    res.send({
+                        code: 302,
+                        data: {
+                            success: false,
+                            msg: 'password is incorrect'
+                        }
+                    })
+                }
+            })
+        } else {
+            //username is not found
+            res.send({
+                code: 301,
+                data: {
+                    success: false,
+                    msg: 'user is not found'
+                }
+            })
+        }
+    })
+})
 
-//     // 短信应用SDK AppKey
-//     var appkey = "9ff91d87c2cd7cd0ea762f141975d1df37481d48700d70ac37470aefc60f9bad";
+/**
+ * addToCart
+ */
+let jwt = require('jsonwebtoken')
+router.post('/product/addToCart', function(req, res, next) {
+    let token = req.headers.token
+    console.log(token)
+    let username = jwt.decode(token)
+    console.log(username)
 
-//     // 需要发送短信的手机号码
-//     var phoneNumbers = ["21212313123", "12345678902", "12345678903"];
-
-//     // 短信模板ID，需要在短信应用中申请
-//     var templateId = 7839; // NOTE: 这里的模板ID`7839`只是一个示例，真实的模板ID需要在短信控制台中申请
-
-//     // 签名
-//     var smsSign = "腾讯云"; // NOTE: 这里的签名只是示例，请使用真实的已申请的签名, 签名参数使用的是`签名内容`，而不是`签名ID`
-
-//     // 实例化QcloudSms
-//     var qcloudsms = QcloudSms(appid, appkey);
-
-//     // 设置请求回调处理, 这里只是演示，用户需要自定义相应处理回调
-//     function callback(err, res, resData) {
-//         if (err) {
-//             console.log("err: ", err);
-//         } else {
-//             console.log("request data: ", res.req);
-//             console.log("response data: ", resData);
-//         }
-//     }
-// })
+    res.send({
+        data: {
+            a: 0
+        }
+    })
+})
 
 module.exports = router;

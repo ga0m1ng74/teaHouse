@@ -11,7 +11,7 @@
         </header>
         <div class="goods-wrap">
             <div class="select">
-                <img src="@/assets/img/radio-button-off-outline.svg">
+                <van-checkbox v-model="itemSelect" checked-color="#51d196"></van-checkbox>
             </div>
             <div class="goods-image">
                 <figure>
@@ -21,22 +21,23 @@
             <div class="wrap-right">
                 <div class="goods-title">
                     <span>ENGLISH BREAKFAST (BLACK TEA)</span>
+                    <div class="delete-icon" @click="goodsDetele">
+                        <img src="@/assets/img/trash-outline.svg">
+                    </div>
                 </div>
                 <div class="option">
                     <div class="goods-price">
                         <span>$11.99</span>
                     </div>
                     <div class="number">
-                        <span>-</span>
-                        9
-                        <span>+</span>
+                        <van-stepper v-model="value" min="1" max="9" disable-input input-width="20px"/>
                     </div>
                 </div>
             </div>
         </div>
         <div class="goods-wrap">
             <div class="select">
-                <img src="@/assets/img/radio-button-off-outline.svg">
+                <van-checkbox v-model="itemSelect" checked-color="#51d196"></van-checkbox>
             </div>
             <div class="goods-image">
                 <figure>
@@ -46,22 +47,23 @@
             <div class="wrap-right">
                 <div class="goods-title">
                     <span>ENGLISH BREAKFAST (BLACK TEA)</span>
+                    <div class="delete-icon" @click="goodsDetele">
+                        <img src="@/assets/img/trash-outline.svg">
+                    </div>
                 </div>
                 <div class="option">
                     <div class="goods-price">
                         <span>$11.99</span>
                     </div>
                     <div class="number">
-                        <span>-</span>
-                        9
-                        <span>+</span>
+                        <van-stepper v-model="value" min="1" max="9" disable-input input-width="20px"/>
                     </div>
                 </div>
             </div>
         </div>
         <div class="goods-wrap">
             <div class="select">
-                <img src="@/assets/img/radio-button-off-outline.svg">
+                <van-checkbox v-model="itemSelect" checked-color="#51d196"></van-checkbox>
             </div>
             <div class="goods-image">
                 <figure>
@@ -71,22 +73,23 @@
             <div class="wrap-right">
                 <div class="goods-title">
                     <span>ENGLISH BREAKFAST (BLACK TEA)</span>
+                    <div class="delete-icon" @click="goodsDetele">
+                        <img src="@/assets/img/trash-outline.svg">
+                    </div>
                 </div>
                 <div class="option">
                     <div class="goods-price">
                         <span>$11.99</span>
                     </div>
                     <div class="number">
-                        <span>-</span>
-                        9
-                        <span>+</span>
+                        <van-stepper v-model="value" min="1" max="9" disable-input input-width="20px"/>
                     </div>
                 </div>
             </div>
         </div>
         <div class="goods-wrap">
             <div class="select">
-                <img src="@/assets/img/radio-button-off-outline.svg">
+                <van-checkbox v-model="itemSelect" checked-color="#51d196"></van-checkbox>
             </div>
             <div class="goods-image">
                 <figure>
@@ -96,66 +99,32 @@
             <div class="wrap-right">
                 <div class="goods-title">
                     <span>ENGLISH BREAKFAST (BLACK TEA)</span>
+                    <div class="delete-icon" @click="goodsDetele">
+                        <img src="@/assets/img/trash-outline.svg">
+                    </div>
                 </div>
                 <div class="option">
                     <div class="goods-price">
                         <span>$11.99</span>
                     </div>
                     <div class="number">
-                        <span>-</span>
-                        9
-                        <span>+</span>
+                        <van-stepper v-model="value" min="1" max="9" disable-input input-width="20px"/>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="goods-wrap">
-            <div class="select">
-                <img src="@/assets/img/radio-button-off-outline.svg">
-            </div>
-            <div class="goods-image">
-                <figure>
-                    <img src="@/assets/img/Tie_Guan_Yin_Oolong.jpeg">
-                </figure>
-            </div>
-            <div class="wrap-right">
-                <div class="goods-title">
-                    <span>ENGLISH BREAKFAST (BLACK TEA)</span>
+        <div class="checkout-wrap">
+            <div class="checkout">
+                <div class="total-price">
+                    <span>
+                        Total(with GST)
+                    </span>
+                    <span class="price-detail">
+                        $218.78
+                    </span>
                 </div>
-                <div class="option">
-                    <div class="goods-price">
-                        <span>$11.99</span>
-                    </div>
-                    <div class="number">
-                        <span>-</span>
-                        9
-                        <span>+</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="goods-wrap">
-            <div class="select">
-                <img src="@/assets/img/radio-button-off-outline.svg">
-            </div>
-            <div class="goods-image">
-                <figure>
-                    <img src="@/assets/img/Tie_Guan_Yin_Oolong.jpeg">
-                </figure>
-            </div>
-            <div class="wrap-right">
-                <div class="goods-title">
-                    <span>ENGLISH BREAKFAST (BLACK TEA)</span>
-                </div>
-                <div class="option">
-                    <div class="goods-price">
-                        <span>$11.99</span>
-                    </div>
-                    <div class="number">
-                        <span>-</span>
-                        9
-                        <span>+</span>
-                    </div>
+                <div class="checkout-btn">
+                    <button @click="checkout">Checkout</button>
                 </div>
             </div>
         </div>
@@ -165,9 +134,30 @@
 
 <script>
 import TabBar from '@/components/common/TabBar.vue'
+import { ref } from 'vue'
 export default {
     name: "Cart",
-    components: { TabBar, }
+    components: { TabBar, },
+    setup() {
+        let itemSelect = ref(true)
+        const value = ref(1)
+
+        /**
+         * methods
+         */
+        const goodsDetele = ()=>{
+            console.log('goodsDetele');
+        }
+        const checkout = ()=>{
+            console.log('checkout');
+        }
+        return {
+            value,
+            itemSelect,
+            goodsDetele,
+            checkout
+        }
+    }
 }
 </script>
 
@@ -179,7 +169,7 @@ export default {
     align-items: center;
     margin-top: 20px;
     margin-bottom: 25px;
-    
+
     .title {
         display: flex;
         height: 30px;
@@ -196,6 +186,7 @@ export default {
 
     .message {
         height: 10px;
+
         p {
             color: rgb(74, 210, 148);
             font-size: 10px;
@@ -211,17 +202,21 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 5px;
+
     .select {
-        width: 35px;
         display: flex;
-        align-items: center;
-        filter: invert(84%) sepia(16%) saturate(1501%) hue-rotate(90deg) brightness(89%) contrast(82%);
+        justify-content: center;
+        width: 40px;
+        img {
+            width: 35px;
+        }
     }
 
     .goods-image {
         display: flex;
         justify-content: center;
         align-items: center;
+
         img {
             width: 1.8rem;
             height: 1.8rem;
@@ -231,31 +226,70 @@ export default {
     .wrap-right {
         display: flex;
         flex-direction: column;
-        
+
         gap: 20px;
-        .goods-title{
+
+        .goods-title {
             padding: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            span{
+                width: 200px;
+            }
+            .delete-icon{
+                width: 25px;
+            }
         }
-        .option{
+
+        .option {
             display: flex;
             justify-content: space-between;
-            
-            .goods-price{
+
+            .goods-price {
+                display: flex;
+                align-items: center;
                 width: 80px;
-                span{
+                span {
                     color: rgb(74, 210, 148);
                 }
             }
-            .number{
+
+            .number {
                 width: 80px;
                 display: flex;
                 justify-content: space-around;
 
-                span{
+                span {
                     width: 15px;
                 }
             }
         }
     }
 }
+
+.checkout-wrap{
+    bottom: 50px;
+    position: fixed;
+    width: 100%;
+    background-color: #fff;
+    .checkout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    
+    .checkout-btn{
+        button{
+            border: none;
+            color: #fff;
+            background-color: rgb(74, 210, 148);
+            width: 100px;
+            height: 30px;
+            border-radius: 10px;
+        }
+    }
+}
+}
+
 </style>

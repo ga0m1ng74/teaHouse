@@ -16,7 +16,21 @@ import '@/assets/js/flexible'
  */
 import FunTab from 'fun-tab'
 import 'fun-tab/dist/index.css'
-//
+/**
+ * pinia
+ */
+import { createPinia } from 'pinia'
+const pinia = createPinia()
 
+/**
+ * vant
+ */
+import Vant from 'vant'
+import 'vant/lib/index.css'
 
-createApp(App).use(router).use(FunTab).mount('#app')
+createApp(App)
+    .use(router)
+    .use(FunTab)
+    .use(pinia)
+    .use(Vant)
+    .mount('#app')

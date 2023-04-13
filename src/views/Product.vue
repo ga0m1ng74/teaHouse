@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="button">
-                <button value="add to cart">
+                <button value="add to cart" @click="addToCartHandler">
                     <span>ADD TO CART</span>
                 </button>
             </div>
@@ -75,6 +75,9 @@ import Header from '@/components/home/Header.vue';
 import axios from 'axios'
 import { useRoute } from 'vue-router'
 import { ref, onBeforeMount, onMounted } from 'vue'
+import { useUserStore } from '@/stores';
+import router from '@/router';
+import { showSuccessToast, showFailToast } from 'vant';
 export default {
     components: { Header },
     setup() {
@@ -82,6 +85,8 @@ export default {
         const route = useRoute()
         let productResult = ref({})
         let dynamicPrice = ref('')
+        //pinia
+        const userStore = useUserStore()
         /**
          * methods
          */
@@ -99,24 +104,50 @@ export default {
                 alert('quantity must less than 10')
             }
         }
-        const setPrice=(e)=>{
-            let discount = 1
+        const setPrice = (e) => {
+
             //set dynamic price on page
-            switch(e.target.value){
+            switch (e.target.value) {
                 case '100g':
-                discount = 1
+                    dynamicPrice.value = productResult.value[0].price
                     break;
                 case '250g':
-                discount = 2.5*0.98
+                    dynamicPrice.value = Math.floor(productResult.value[0].price * 2.5 * 0.98).toFixed(2)
                     break;
                 case '500g':
-                discount = 5*0.95
+                    dynamicPrice.value = Math.floor(productResult.value[0].price * 5 * 0.95).toFixed(2)
                     break;
                 case '1Kg':
-                discount = 9
+                    dynamicPrice.value = Math.floor(productResult.value[0].price * 9).toFixed(2)
                     break;
             }
-            dynamicPrice.value = Math.floor(productResult.value[0].price * discount).toFixed(2)
+        }
+
+        const addToCartHandler = async () => {
+            //get dynamic price and number
+            console.log(userStore.person.success);
+            if (userStore.person.success) {
+                showSuccessToast({message:'add success!',overlay:true})
+                //axios
+                try {
+                    const response = await axios({
+                        url: '/api/product/addToCart',
+                        method: 'post',
+                        data: {
+                            productTitle: productResult.value[0].title,
+                        },
+                        headers: {
+                            token: userStore.person.data[0].token
+                        }
+                    })
+                    console.log(response.data);
+                } catch (error) {
+                    console.log(error.message);
+                }
+            } else {
+                showFailToast({message:'please login!',overlay:true})
+                router.push('/login')
+            }
         }
         /**
          * hooks
@@ -145,6 +176,7 @@ export default {
             qtyMinus,
             qtyAdd,
             setPrice,
+            addToCartHandler,
         }
     }
 }
@@ -264,9 +296,10 @@ export default {
         }
     }
 
-    .construction{
+    .construction {
         margin-top: 4rem;
-        img{
+
+        img {
             width: 25%;
         }
     }

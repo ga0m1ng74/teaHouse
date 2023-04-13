@@ -59,7 +59,7 @@ export default {
         let funTabList = ref([])
         let pageContent = reactive({})
         const handleTabsChange = (value) => {
-            console.log('FunTabs change:', value)
+            // console.log('FunTabs change:', value)
             //
             requestHomePage(value)
         }
