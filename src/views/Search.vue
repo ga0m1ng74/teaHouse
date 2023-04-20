@@ -53,7 +53,7 @@ export default {
                 }
             })
             searchResult.value = response.data.data
-            console.log(searchResult.value);
+            // console.log(searchResult.value);
         }
 
         const productPage = (title)=>{
@@ -81,7 +81,7 @@ export default {
 
 <style lang="less" scoped>
 header {
-    // position: fixed;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -142,7 +142,7 @@ header {
     width: 100%;
     height: 2rem;
     background-color: rgb(248, 247, 242);
-
+    margin-block-start: 1.3rem;
     .title {
         font-size: .5333rem;
     }

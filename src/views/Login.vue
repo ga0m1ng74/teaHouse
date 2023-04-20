@@ -77,7 +77,7 @@ export default {
                         password:password.value
                     }
                 })
-                showToast({message:response.data.data.msg,overlay:true})
+                showToast({message:response.data.data.msg,overlay:true,wordBreak: 'break-word'})
                 //login failure
                 if(!response.data.data.success) return
                 //login success

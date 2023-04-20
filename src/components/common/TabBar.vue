@@ -18,6 +18,7 @@ import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 export default {
     name: "TabBar",
+    
     setup() {
         let routerList = reactive([{
             title: 'Home',
@@ -48,11 +49,7 @@ export default {
             if (router.currentRoute.value.path == path) return
             router.push(path)
         }
-
-
-
-
-
+        
         return {
             routerList,
             switchTab,
@@ -81,10 +78,12 @@ export default {
             display: flex;
             flex-direction: column;
             background-color: rgb(74, 210, 148);
+
             img {
                 width: .4444rem;
                 height: .4444rem;
             }
+
             span {
                 font-size: .1778rem;
             }

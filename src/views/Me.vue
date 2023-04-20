@@ -9,7 +9,6 @@
             <van-cell title="password" :value="adminInfo.password" size="large"/>
             <van-cell title="token" :value="adminInfo.token" size="large"/>
             <van-cell title="address" value="1 Pitt St,Sydeny NSW" size="large"/>
-            <van-cell title="address" value="1 Pitt St,Sydeny NSW " />
         </van-cell-group>
 
         <div class="logout">

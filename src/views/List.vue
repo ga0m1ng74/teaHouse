@@ -3,7 +3,8 @@
         <section>
             <div class="select-left">
                 <ul>
-                    <li v-for="(item, index) in categoryMenuList.menuList" :key="index" @click="menuClick(index)" :class="{active:index==pageIndex}">
+                    <li v-for="(item, index) in categoryMenuList.menuList" :key="index" @click="menuClick(index)"
+                        :class="{ active: index == pageIndex }">
                         <span>{{ item.name }}</span>
                     </li>
                 </ul>
@@ -16,15 +17,13 @@
                         <span>{{ item.name }}</span>
                     </div>
                     <div class="wrap-container">
-                        <div class="wrap-detail" v-for="(k, i) in item.details" :key="i">
-                            <a href="">
-                                <figure>
-                                    <img :src="k.imgUrl">
-                                </figure>
-                                <div class="detail-span">
-                                    <span>{{ k.name }}</span>
-                                </div>
-                            </a>
+                        <div class="wrap-detail" v-for="(k, i) in item.details" :key="i" @click="detailHandler(k.name)">
+                            <figure>
+                                <img :src="k.imgUrl">
+                            </figure>
+                            <div class="detail-span">
+                                <span>{{ k.name }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -36,8 +35,9 @@
 
 <script>
 import TabBar from '@/components/common/TabBar.vue'
-import { ref, onMounted ,onUnmounted} from 'vue'
-import axios from 'axios'
+import { ref, onMounted, onUnmounted } from 'vue'
+import axios from 'axios';
+import router from '@/router'
 export default {
     name: "List",
     components: { TabBar },
@@ -45,8 +45,8 @@ export default {
         let categoryMenuList = ref([])
         let categoryListDetails = ref([])
         let pagePosition = ref(0)
-        let pageIndex =ref(0)
-        const screenLocation = [0,390,770,990,1370,1720,2083]
+        let pageIndex = ref(0)
+        const screenLocation = [0, 390, 770, 990, 1370, 1720, 2083]
         const requestCategoryInfo = async () => {
             try {
                 const response = await axios({ url: '/api/category/menuList' })
@@ -58,32 +58,41 @@ export default {
         }
 
         const menuClick = (index) => {
-            window.scrollTo(0,screenLocation[index])
+            window.scrollTo(0, screenLocation[index])
+        }
+        const detailHandler = (name)=>{
+            router.push({
+                path:'/categoryList',
+                query:{
+                    name
+                }
+            })
         }
 
-        const pagePositionHandler = ()=>{
+        const pagePositionHandler = () => {
             pagePosition = window.pageYOffset
             // console.log(pagePosition);
-            if(pagePosition>=0 && pagePosition<390) pageIndex.value =0
-            else if (pagePosition>=390 && pagePosition<770) pageIndex.value=1
-            else if (pagePosition>=770 && pagePosition<990) pageIndex.value=2
-            else if (pagePosition>=990 && pagePosition<1350) pageIndex.value=3
-            else if (pagePosition>=1350 && pagePosition<1420) pageIndex.value=4
-            else if (pagePosition>=1720 && pagePosition<1950) pageIndex.value=5
-            else if (pagePosition>=1950 ) pageIndex.value=6
+            if (pagePosition >= 0 && pagePosition < 390) pageIndex.value = 0
+            else if (pagePosition >= 390 && pagePosition < 770) pageIndex.value = 1
+            else if (pagePosition >= 770 && pagePosition < 990) pageIndex.value = 2
+            else if (pagePosition >= 990 && pagePosition < 1350) pageIndex.value = 3
+            else if (pagePosition >= 1350 && pagePosition < 1420) pageIndex.value = 4
+            else if (pagePosition >= 1720 && pagePosition < 1950) pageIndex.value = 5
+            else if (pagePosition >= 1950) pageIndex.value = 6
         }
 
         onMounted(() => {
             requestCategoryInfo()
-            window.addEventListener('scroll',pagePositionHandler)
+            window.addEventListener('scroll', pagePositionHandler)
         })
         onUnmounted(() => {
-            window.removeEventListener('scroll',pagePositionHandler)
+            window.removeEventListener('scroll', pagePositionHandler)
         })
         return {
             categoryMenuList,
             categoryListDetails,
             menuClick,
+            detailHandler,
             pageIndex
         }
     }
@@ -91,7 +100,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 section {
     display: flex;
     flex: 1;
@@ -105,6 +113,7 @@ section {
     display: flex;
     justify-content: center;
     position: fixed;
+
     li {
         height: 1.5rem;
         display: flex;
@@ -119,9 +128,10 @@ section {
         }
 
         &.active {
-            span{
+            span {
                 color: rgb(74, 210, 148);
             }
+
             background-color: #fff;
         }
     }
@@ -134,11 +144,12 @@ section {
     flex-direction: column;
     overflow: hidden;
     margin-left: 1.7rem;
+
     .right-wrap {
         display: flex;
         flex-direction: column;
         margin-top: 0.8rem;
-        
+
         .wrap-title {
             text-align: center;
             font-size: .4444rem;

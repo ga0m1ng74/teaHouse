@@ -2,31 +2,19 @@
     <div>
         <Header></Header>
         <div class="fun-tab">
-            <fun-tabs v-model="selectedId" activeColor="#4AD294" @change="handleTabsChange">
-                <fun-tab-item v-for="(item) in funTabList" :name="item.id" :title="item.title" />
-            </fun-tabs>
+            <van-tabs v-model:active="selectedId" @click-tab="handleTabsChange" color="#4AD294" swipeable animated>
+                <van-tab v-for="item in funTabList"  :name="item.id" :title="item.title"></van-tab>
+            </van-tabs>
         </div>
-        <div v-for="(item,index) in pageContent" :key="index">
+        <div v-for="(item, index) in pageContent" :key="index">
             <section class="swiper">
-                <Swiper 
-                v-if="item[0].type=='swiperList'"
-                :swiperList = 'item[0].data'
-                ></Swiper>
+                <Swiper v-if="item[0].type == 'swiperList'" :swiperList='item[0].data'></Swiper>
             </section>
-            <Icons 
-            v-if="item[1].type=='iconList'"
-            :iconList = 'item[1].data'
-            ></Icons>
+            <Icons v-if="item[1].type == 'iconList'" :iconList='item[1].data'></Icons>
 
-            <SortCard
-            v-if="item[2].type =='sortCardMessage'"
-            :sortCardMessage = 'item[2].data'
-            ></SortCard>
+            <SortCard v-if="item[2].type == 'sortCardMessage'" :sortCardMessage='item[2].data'></SortCard>
 
-            <Recommend 
-            v-if="item[3].type=='recommendList'"
-            :recommendList = 'item[3].data'
-            ></Recommend>
+            <Recommend v-if="item[3].type == 'recommendList'" :recommendList='item[3].data'></Recommend>
             <!-- <Classfication></Classfication> -->
         </div>
         <!-- footer -->
@@ -44,10 +32,6 @@ import SortCard from '@/components/common/SortCard.vue'
 import Classfication from '@/components/home/Classfication.vue'
 import { ref, reactive, onBeforeMount, onUpdated } from 'vue'
 /**
- * fun tab plugin
- */
-import { FunTabs, FunTabItem } from 'fun-tab';
-/**
  * axios
  */
 import axios from 'axios'
@@ -58,27 +42,27 @@ export default {
         let selectedId = ref(1)
         let funTabList = ref([])
         let pageContent = reactive({})
-        const handleTabsChange = (value) => {
-            // console.log('FunTabs change:', value)
-            //
-            requestHomePage(value)
+        const handleTabsChange = ({name}) => {
+            // console.log('FunTabs change:', name)
+            
+            requestHomePage(name);
         }
 
         const requestHomePage = async (value) => {
             try {
-                const response = await axios({ url: '/api/index_list/home/'+(value?value:1) })
+                const response = await axios({ url: '/api/index_list/home/' + (value ? value : 1) })
                 //page content
                 pageContent.value = await response.data.page
             } catch (error) {
                 console.log(error.message)
             }
         }
-        const requestTabBarInfo = async()=>{
+        const requestTabBarInfo = async () => {
             try {
                 const response = await axios({ url: '/api/index_list/tapBar/' })
-                 //tapBar
+                //tapBar
                 funTabList.value = await response.data.tapBar
-                
+
             } catch (error) {
                 console.log(error.message)
             }
@@ -89,7 +73,7 @@ export default {
             requestHomePage()
         })
         onUpdated(() => {
-            window.scrollTo(0,0)
+            window.scrollTo(0, 0)
         })
 
         return {

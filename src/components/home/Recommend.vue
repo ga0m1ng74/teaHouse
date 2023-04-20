@@ -3,9 +3,7 @@
         <ul>
             <li v-for="item in recommendList" :key="item.id" @click="productPage(item.title)">
                 <figure class="figure">
-                    <a href="#">
-                        <img :src="item.imgUrl" alt="">
-                    </a>
+                    <img :src="item.imgUrl" alt="">
                 </figure>
                 <div>
                     <div class="title">
@@ -24,10 +22,14 @@
 import router from '@/router'
 export default {
     name: 'Recommond',
-    props:['recommendList'],
+    props: ['recommendList'],
     setup() {
-        const productPage = (title)=>{
-            router.push({path:'/product',query:{title}})
+
+        /**
+         * methods
+         */
+        const productPage = (title) => {
+            router.push({ path: '/product', query: { title } })
         }
         return {
             productPage
@@ -59,6 +61,7 @@ h3 {
         display: flex;
         justify-content: center;
         align-content: center;
+
         img {
             width: 2rem;
         }

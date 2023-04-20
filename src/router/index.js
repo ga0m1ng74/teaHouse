@@ -21,6 +21,12 @@ const routes = [{
             import ("../views/List.vue")
     },
     {
+        path: '/categoryList',
+        name: 'categoryList',
+        component: () =>
+            import ("../views/CategoryList.vue")
+    },
+    {
         path: '/cart',
         name: 'Cart',
         component: () =>
@@ -56,11 +62,43 @@ const routes = [{
         component: () =>
             import ("../views/Product.vue")
     },
+    {
+        path: '/order',
+        name: 'Order',
+        component: () =>
+            import ("../views/Order.vue")
+    },
+    {
+        path: '/payment',
+        name: 'Payment',
+        component: () =>
+            import ("../views/Payment.vue")
+    },
 ]
 
 const router = createRouter({
     history: createWebHistory(),
     routes,
 })
+
+// router.beforeEach((to, from, next) => {
+//     // to and from are both route objects. must call `next`.
+//     // let nextRoute = ['Payment', 'Cart', 'Order'];
+//     // let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+
+//     // //page need login
+//     // if (nextRoute.indexOf(to.name > 0)) {
+//     //     if (!userInfo) {
+//     //         router.push('/login')
+//     //     } else {
+//     //         next();
+//     //     }
+//     // }
+
+//     // console.log(to, from, next);
+//     // next();
+// })
+
 
 export default router

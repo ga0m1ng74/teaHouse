@@ -1,7 +1,7 @@
 <template>
     <div>
         <header>
-            <Header></Header>
+            <img src="@/assets/img/chevron-back-outline.svg" alt="back" class="svg-color-vue" @click="$router.go(-1)">
         </header>
         <section class="display" v-if="productResult[0]">
             <figure>
@@ -85,6 +85,7 @@ export default {
         const route = useRoute()
         let productResult = ref({})
         let dynamicPrice = ref('')
+        let productZise = '100g'
         //pinia
         const userStore = useUserStore()
         /**
@@ -94,18 +95,20 @@ export default {
             qty.value--
             if (qty.value <= 0) {
                 qty.value = 1
-                alert('quantity must more than 0')
+                // alert('quantity must more than 0')
+                showFailToast({ message: 'quantity must more than 0', overlay: true, wordBreak: 'break-word' })
             }
         }
         const qtyAdd = () => {
             qty.value++
             if (qty.value >= 10) {
                 qty.value = 9
-                alert('quantity must less than 10')
+                // alert('quantity must less than 10')
+                showFailToast({ message: 'quantity must less than 10', overlay: true, wordBreak: 'break-word' })
             }
         }
         const setPrice = (e) => {
-
+            productZise = e.target.value
             //set dynamic price on page
             switch (e.target.value) {
                 case '100g':
@@ -125,9 +128,12 @@ export default {
 
         const addToCartHandler = async () => {
             //get dynamic price and number
-            console.log(userStore.person.success);
-            if (userStore.person.success) {
-                showSuccessToast({message:'add success!',overlay:true})
+            // console.log(dynamicPrice.value)
+            // console.log(qty.value)
+            // console.log(productZise)
+            if (localStorage.getItem('userInfo')) {
+                let token = JSON.parse(localStorage.getItem('userInfo')).token
+                showSuccessToast({ message: 'add success!', overlay: true, wordBreak: 'break-word' })
                 //axios
                 try {
                     const response = await axios({
@@ -135,9 +141,12 @@ export default {
                         method: 'post',
                         data: {
                             productTitle: productResult.value[0].title,
+                            itemNumber: qty.value,
+                            itemPrice: dynamicPrice.value,
+                            itemSize: productZise,
                         },
                         headers: {
-                            token: userStore.person.data[0].token
+                            token
                         }
                     })
                     console.log(response.data);
@@ -145,7 +154,7 @@ export default {
                     console.log(error.message);
                 }
             } else {
-                showFailToast({message:'please login!',overlay:true})
+                showFailToast({ message: 'please login!', overlay: true, wordBreak: 'break-word' })
                 router.push('/login')
             }
         }
@@ -184,14 +193,26 @@ export default {
 
 
 <style lang="less" scoped>
+.svg-color-vue {
+        filter: invert(84%) sepia(16%) saturate(1501%) hue-rotate(90deg) brightness(89%) contrast(82%);
+    }
+header {
+    position: fixed;
+    top: 0;
+    z-index: 9;
+    width: 100%;
+    background-color: #fff;
+    img {
+        width: 40px;
+    }
+}
 .display {
-    margin-top: 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-
+    margin-block-start: 50px;
     img {
         width: 80%;
     }
