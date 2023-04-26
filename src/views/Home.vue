@@ -3,7 +3,7 @@
         <Header></Header>
         <div class="fun-tab">
             <van-tabs v-model:active="selectedId" @click-tab="handleTabsChange" color="#4AD294" swipeable animated>
-                <van-tab v-for="item in funTabList"  :name="item.id" :title="item.title"></van-tab>
+                <van-tab v-for="item in funTabList" :name="item.id" :title="item.title"></van-tab>
             </van-tabs>
         </div>
         <div v-for="(item, index) in pageContent" :key="index">
@@ -42,9 +42,9 @@ export default {
         let selectedId = ref(1)
         let funTabList = ref([])
         let pageContent = reactive({})
-        const handleTabsChange = ({name}) => {
+        const handleTabsChange = ({ name }) => {
             // console.log('FunTabs change:', name)
-            
+
             requestHomePage(name);
         }
 

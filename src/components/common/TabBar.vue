@@ -23,23 +23,23 @@ export default {
         let routerList = reactive([{
             title: 'Home',
             path: '/home',
-            active: '../src/assets/img/home-outline.svg',
-            slected: '../src/assets/img/home.svg',
+            active: '/img/icons/home-outline.svg',
+            slected: '/img/icons/home.svg',
         }, {
             title: 'Category',
             path: '/list',
-            active: '../src/assets/img/grid-outline.svg',
-            slected: '../src/assets/img/grid.svg',
+            active: '/img/icons/grid-outline.svg',
+            slected: '/img/icons/grid.svg',
         }, {
             title: 'Cart',
             path: '/cart',
-            active: '../src/assets/img/cart-outline.svg',
-            slected: '../src/assets/img/cart.svg',
+            active: '/img/icons/cart-outline.svg',
+            slected: '/img/icons/cart.svg',
         }, {
             title: 'Me',
             path: '/me',
-            active: '../src/assets/img/person-outline.svg',
-            slected: '../src/assets/img/person.svg',
+            active: '/img/icons/person-outline.svg',
+            slected: '/img/icons/person.svg',
         }
         ])
         const router = useRouter()
@@ -49,7 +49,6 @@ export default {
             if (router.currentRoute.value.path == path) return
             router.push(path)
         }
-        
         return {
             routerList,
             switchTab,
